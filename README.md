@@ -81,7 +81,7 @@ Here is the Task Schema:
 
 #### Requirements
 
-1. Your database should be on [mLab](http://www.mlab.com). It should contain at least 20 users and 100 tasks (about half of which should be completed) (**We provided scripts for you in the database_scripts folder. Read below how to use these scripts**).
+1. Your database should be on [mLab](http://www.mlab.com) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). It should contain at least 20 users and 100 tasks (about half of which should be completed) (**We provided scripts for you in the database_scripts folder. Read below how to use these scripts**).
 
 2. Responses from your API should be a JSON object with two fields. The first field should be named `message` and should contain a human readable String. The second field should be named `data` and should contain the actual JSON response object. For example, here is a valid response:
 
@@ -111,7 +111,7 @@ Here is the Task Schema:
   - Start early!
   - Please DO NOT delete the `.gitignore file` from the project
   - Check out [Postman](https://www.getpostman.com/postman) to your API
-  - Free MongoDB - [mlab](https://mlab.com/) 
+  - Free MongoDB - [mlab](https://mlab.com/) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
   - Free Server(API) Host [Heroku (free)](https://www.heroku.com/) or [Digital Ocean](https://www.digitalocean.com/) - [Get $50 free credits for Digital Ocean on Github Education](https://education.github.com/pack)
 
 ### How to use the DB Scripts
