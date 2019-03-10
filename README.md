@@ -112,7 +112,7 @@ Here is the Task Schema:
   - Please DO NOT delete the `.gitignore file` from the project
   - Check out [Postman](https://www.getpostman.com/postman) to your API
   - Free MongoDB - [mlab](https://mlab.com/) 
-  - Free Host [Heroku (free)](https://www.heroku.com/) or [Digital Ocean](https://www.digitalocean.com/) - [Get $50 free credits for Digital Ocean on Github Education](https://education.github.com/pack)
+  - Free Server(API) Host [Heroku (free)](https://www.heroku.com/) or [Digital Ocean](https://www.digitalocean.com/) - [Get $50 free credits for Digital Ocean on Github Education](https://education.github.com/pack)
 
 ### How to use the DB Scripts
 
