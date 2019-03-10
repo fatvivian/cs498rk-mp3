@@ -111,10 +111,12 @@ Here is the Task Schema:
   - Start early!
   - Please DO NOT delete the `.gitignore file` from the project
   - Check out [Postman](https://www.getpostman.com/postman) to your API
+  - Free MongoDB - [mlab](https://mlab.com/) 
+  - Free Host [Heroku (free)](https://www.heroku.com/) or [Digital Ocean](https://www.digitalocean.com/) - [Get $50 free credits for Digital Ocean on Github Education](https://education.github.com/pack)
 
 ### How to use the DB Scripts
 
-Assuming your API is fully operational (you need to have implement /users and /tasks endpoints for your API), these scripts will populate and clear your database as needed.
+Assuming your API is fully operational (you need to have implement /users and /tasks endpoints for your API), these scripts (in database_scripts/ folder) will populate and clear your database as needed. 
 
 **dbClean.py**
 
@@ -147,5 +149,4 @@ Contains sample task descriptions. Edit if you want, I don't care.
 `nodemon --exec node server.js` to automatically restart the server on save.
 
 ## Submission Details
-1. [Submission Form](https://uiucwp.typeform.com/to/AYLFmM)
-2. You need to also submit at [the submission website](http://uiucwp.com)
+[Submission Form](https://uiucwp.typeform.com/to/AYLFmM)
