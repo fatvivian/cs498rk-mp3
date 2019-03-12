@@ -47,17 +47,17 @@ Here are some example queries and what they would return:
 
 | Query                                                                                | Description                                             |
 |-----------------------------------------------------------------------------------------|---------------------------------------------------------|
-| `http://www.uiucwp.com:4000/api/users?where={"_id": "55099652e5993a350458b7b7"}`         | Returns a list with a single user with the specified ID |
-| `http://www.uiucwp.com:4000/api/tasks?where={"completed": true}`                          | Returns a list of completed tasks                       |
-| `http://www.uiucwp.com:4000/api/tasks?where={"_id": {"$in": ["235263523","3872138723"]}}` | Returns a set of tasks                                  |
-| `http://www.uiucwp.com:4000/api/users?sort={"name": 1}`                                  | Returns a list of users sorted by name                  |
-| `http://www.uiucwp.com:4000/api/users?select={"_id": 0}`                                  | Returns a list of users without the _id field           |
-| `http://www.uiucwp.com:4000/api/users?skip=60&limit=20`                                   | Returns user number 61 to 80                            |
+| `http://localhost:4000/api/users?where={"_id": "55099652e5993a350458b7b7"}`         | Returns a list with a single user with the specified ID |
+| `http://localhost:4000/api/tasks?where={"completed": true}`                          | Returns a list of completed tasks                       |
+| `http://localhost:4000/api/tasks?where={"_id": {"$in": ["235263523","3872138723"]}}` | Returns a set of tasks                                  |
+| `http://localhost:4000/api/users?sort={"name": 1}`                                  | Returns a list of users sorted by name                  |
+| `http://localhost:4000/api/users?select={"_id": 0}`                                  | Returns a list of users without the _id field           |
+| `http://localhost:4000/api/users?skip=60&limit=20`                                   | Returns user number 61 to 80                            |
 
 **The API should be able to handle any combination of those parameters in a single request**. For example, the following is a valid GET request:
 
 ```javascript
-http://www.uiucwp.com:4000/api/users?sort={"name": 1}&skip=60&limit=20
+http://localhost:4000/api/users?sort={"name": 1}&skip=60&limit=20
 ```
 
 Here is the User Schema:
@@ -81,7 +81,7 @@ Here is the Task Schema:
 
 #### Requirements
 
-1. Your database should be on [mLab](http://www.mlab.com) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). It should contain at least 20 users and 100 tasks (about half of which should be completed) (**We provided scripts for you in the database_scripts folder. Read below how to use these scripts**).
+1. Your database should be on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). It should contain at least 20 users and 100 tasks (about half of which should be completed) (**We provided scripts for you in the database_scripts folder. Read below how to use these scripts**).
 
 2. Responses from your API should be a JSON object with two fields. The first field should be named `message` and should contain a human readable String. The second field should be named `data` and should contain the actual JSON response object. For example, here is a valid response:
 
@@ -111,7 +111,7 @@ Here is the Task Schema:
   - Start early!
   - Please DO NOT delete the `.gitignore file` from the project
   - Check out [Postman](https://www.getpostman.com/postman) to your API
-  - Free MongoDB - [mlab](https://mlab.com/) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+  - Free MongoDB - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
   - You don't need to host anywhere, we will check out your code locally
 
 ### How to use the DB Scripts
@@ -120,15 +120,15 @@ Assuming your API is fully operational (you need to have implement /users and /t
 
 **dbClean.py**
 
-`python dbClean.py -u "yoururl.com" -p 4000 `
+`python dbClean.py -u "localhost" -p 4000 `
 
-You can change "yoururl.com" and the port number to match your own database. Leave the quotation marks. DO NOT include "/api/" or "/user" etc. If these parameters are not specified, this script will, by default, clear out the http://uiucwp.com:4000 database.
+You can change "localhost" and the port number to match your own running api server. Leave the quotation marks. DO NOT include "/api/" or "/user" etc. If these parameters are not specified, this script will, by default, clear out the http://localhost:4000 database.
 
 **dbFill.py**
 
-`python dbFill.py -u "yoururl.com" -p 4000 -n 10 -t 30`
+`python dbFill.py -u "localhost" -p 4000 -n 10 -t 30`
 
-Once again, change the url and port number to match your database. You can populate your database with X users and Y tasks (in the above case, 10 and 30 respectively). This will randomly generate users with realistic names and emails as well as realistic tasks. Tasks will have a 50% chance of being completed and a 60% chance of being assigned. If num_tasks >> num_users, users will likely have multiple tasks assigned to them. A task will have one assigned user at most.
+Once again, change the url and port number to match your own running api server. You can populate your database with X users and Y tasks (in the above case, 10 and 30 respectively). This will randomly generate users with realistic names and emails as well as realistic tasks. Tasks will have a 50% chance of being completed and a 60% chance of being assigned. If num_tasks >> num_users, users will likely have multiple tasks assigned to them. A task will have one assigned user at most.
 
 **task.txt**
 
