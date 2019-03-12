@@ -7,11 +7,12 @@
  * @author Aswin Sivaraman
  * @date Created: Spring 2015
  * @date Modified: Spring 2015
+ * @date Modified: Spring 2019
 """
 
 import sys
 import getopt
-import httplib
+import http.client
 import urllib
 import json
 from random import randint
@@ -20,7 +21,7 @@ from datetime import date
 from time import mktime
 
 def usage():
-    print 'dbFill.py -u <baseurl> -p <port> -n <numUsers> -t <numTasks>'
+    print('dbFill.py -u <baseurl> -p <port> -n <numUsers> -t <numTasks>')
 
 def getUsers(conn):
     # Retrieve the list of users
@@ -30,15 +31,15 @@ def getUsers(conn):
     d = json.loads(data)
 
     # Array of user IDs
-    users = [str(d['data'][x]['_id']) for x in xrange(len(d['data']))]
+    users = [str(d['data'][x]['_id']) for x in range(len(d['data']))]
 
     return users
 
 def main(argv):
 
     # Server Base URL and port
-    baseurl = "www.uiucwp.com"
-    port = 3000
+    baseurl = "localhost"
+    port = 4000
 
     # Number of POSTs that will be made to the server
     userCount = 50
@@ -67,7 +68,7 @@ def main(argv):
     lastNames = ["smith","johnson","williams","jones","brown","davis","miller","wilson","moore","taylor","anderson","thomas","jackson","white","harris","martin","thompson","garcia","martinez","robinson","clark","rodriguez","lewis","lee","walker","hall","allen","young","hernandez","king","wright","lopez","hill","scott","green","adams","baker","gonzalez","nelson","carter","mitchell","perez","roberts","turner","phillips","campbell","parker","evans","edwards","collins","stewart","sanchez","morris","rogers","reed","cook","morgan","bell","murphy","bailey","rivera","cooper","richardson","cox","howard","ward","torres","peterson","gray","ramirez","james","watson","brooks","kelly","sanders","price","bennett","wood","barnes","ross","henderson","coleman","jenkins","perry","powell","long","patterson","hughes","flores","washington","butler","simmons","foster","gonzales","bryant","alexander","russell","griffin","diaz","hayes"]
 
     # Server to connect to (1: url, 2: port number)
-    conn = httplib.HTTPConnection(baseurl, port)
+    conn = http.client.HTTPConnection(baseurl, port)
 
     # HTTP Headers
     headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
@@ -78,12 +79,12 @@ def main(argv):
     userEmails = []
 
     # Loop 'userCount' number of times
-    for i in xrange(userCount):
+    for i in range(userCount):
 
         # Pick a random first name and last name
         x = randint(0,99)
         y = randint(0,99)
-        params = urllib.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com"})
+        params = urllib.parse.urlencode({'name': firstNames[x] + " " + lastNames[y], 'email': firstNames[x] + "@" + lastNames[y] + ".com"})
 
         # POST the user
         conn.request("POST", "/api/users", params, headers)
@@ -101,7 +102,7 @@ def main(argv):
     taskNames = f.read().splitlines()
 
     # Loop 'taskCount' number of times
-    for i in xrange(taskCount):
+    for i in range(taskCount):
 
         # Randomly generate task parameters
         assigned = (randint(0,10) > 4)
@@ -112,7 +113,7 @@ def main(argv):
         completed = (randint(0,10) > 5)
         deadline = (mktime(date.today().timetuple()) + randint(86400,864000)) * 1000
         description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-        params = urllib.urlencode({'name': choice(taskNames), 'deadline': deadline, 'assignedUserName': assignedUserName, 'assignedUser': assignedUserID, 'completed': str(completed).lower(), 'description': description})
+        params = urllib.parse.urlencode({'name': choice(taskNames), 'deadline': deadline, 'assignedUserName': assignedUserName, 'assignedUser': assignedUserID, 'completed': str(completed).lower(), 'description': description})
 
         # POST the task
         conn.request("POST", "/api/tasks", params, headers)
@@ -141,7 +142,7 @@ def main(argv):
             assignedUserTasks.append(taskID)
 
             # PUT in the user
-            params = urllib.urlencode({'_id': assignedUserID, 'name': assignedUserName, 'email': assignedUserEmail, 'dateCreated': assignedUserDate, 'pendingTasks': assignedUserTasks}, True)
+            params = urllib.parse.urlencode({'_id': assignedUserID, 'name': assignedUserName, 'email': assignedUserEmail, 'dateCreated': assignedUserDate, 'pendingTasks': assignedUserTasks}, True)
             conn.request("PUT", "/api/users/"+assignedUserID, params, headers)
             response = conn.getresponse()
             data = response.read()
@@ -149,7 +150,7 @@ def main(argv):
 
     # Exit gracefully
     conn.close()
-    print str(userCount)+" users and "+str(taskCount)+" tasks added at "+baseurl+":"+str(port)
+    print(str(userCount)+" users and "+str(taskCount)+" tasks added at "+baseurl+":"+str(port))
 
 
 if __name__ == "__main__":

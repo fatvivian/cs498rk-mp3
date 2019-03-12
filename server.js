@@ -8,8 +8,8 @@ var express = require('express'),
 // Create our Express application
 var app = express();
 
-// Use environment defined port or 3000
-var port = process.env.PORT || 3000;
+// Use environment defined port or 4000
+var port = process.env.PORT || 4000;
 
 // Connect to a MongoDB
 mongoose.connect(secrets.mongo_connection, { useMongoClient: true});

@@ -7,16 +7,17 @@
  * @author Aswin Sivaraman
  * @date Created: Spring 2015
  * @date Modified: Spring 2015
+ * @date Modified: Spring 2019
 """
 
 import sys
 import getopt
-import httplib
+import http.client
 import urllib
 import json
 
 def usage():
-    print 'dbClean.py -u <baseurl> -p <port>'
+    print('dbClean.py -u <baseurl> -p <port>')
 
 def getUsers(conn):
     # Retrieve the list of users
@@ -26,7 +27,7 @@ def getUsers(conn):
     d = json.loads(data)
 
     # Array of user IDs
-    users = [str(d['data'][x]['_id']) for x in xrange(len(d['data']))]
+    users = [str(d['data'][x]['_id']) for x in range(len(d['data']))]
 
     return users
 
@@ -38,15 +39,15 @@ def getTasks(conn):
     d = json.loads(data)
 
     # Array of user IDs
-    tasks = [str(d['data'][x]['_id']) for x in xrange(len(d['data']))]
+    tasks = [str(d['data'][x]['_id']) for x in range(len(d['data']))]
 
     return tasks
 
 def main(argv):
 
     # Server Base URL and port
-    baseurl = "www.uiucwp.com"
-    port = 3000
+    baseurl = "localhost"
+    port = 4000
 
     try:
         opts, args = getopt.getopt(argv,"hu:p:",["url=","port="])
@@ -63,7 +64,7 @@ def main(argv):
              port = int(arg)
 
     # Server to connect to (1: url, 2: port number)
-    conn = httplib.HTTPConnection(baseurl, port)
+    conn = http.client.HTTPConnection(baseurl, port)
 
     # Fetch a list of users
     users = getUsers(conn)
@@ -97,7 +98,7 @@ def main(argv):
 
     # Exit gracefully
     conn.close()
-    print "All users and tasks removed at "+baseurl+":"+str(port)
+    print("All users and tasks removed at "+baseurl+":"+str(port))
 
 
 if __name__ == "__main__":
