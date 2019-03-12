@@ -123,7 +123,7 @@ Assuming your API is fully operational (you need to have implement /users and /t
 
 `python dbClean.py -u "localhost" -p 4000 `
 
-You can change "localhost" and the port number to match your own running api server. Leave the quotation marks. DO NOT include "/api/" or "/user" etc. If these parameters are not specified, this script will, by default, clear out the http://localhost:4000 database.
+You can change "localhost" and the port number to match your own running api server. Leave the quotation marks. DO NOT include "/api/" or "/user" etc. If these parameters are not specified, this script will, by default, clear out the database that your api server connected to.
 
 **dbFill.py**
 
