@@ -1,7 +1,7 @@
 {
-  "name": "mp3_starter_17",
+  "name": "mp3_starter_19",
   "version": "1.0.0",
-  "description": "MP3 Starter for CS498RK Fall 2017",
+  "description": "MP3 Starter for CS498RK Spring 2019",
   "authors": [
     "James Lee <jwlee11@illinois.edu>",
     "Sujay Khandekar <khandek2@illinois.edu>"
@@ -22,7 +22,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongoose": "^4.10.0",
+    "mongoose": "^5.4.18",
     "nodemon": "^1.11.0"
   }
 }

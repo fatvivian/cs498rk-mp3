@@ -117,7 +117,7 @@ Here is the Task Schema:
 ### How to use the DB Scripts
 
 Assuming your API is fully operational (you need to have implement /users and /tasks endpoints for your API), these scripts (in database_scripts/ folder) will populate and clear your database as needed. 
-***NOTE: user Python3 to run following codes*** 
+***NOTE: Use Python3 to run following codes*** 
 
 **dbClean.py**
 
