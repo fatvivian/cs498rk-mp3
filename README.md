@@ -142,7 +142,7 @@ Contains sample task descriptions. Edit if you want, I don't care.
 
 ## Environment Setup Guide
 1. Clone the repository:
-`git clone https://github.com/uiuc-web-programming/mp3_starter_17.git mp3`, then `cd mp3`
+`https://github.com/uiuc-web-programming/mp3_starter_19.git mp3`, then `cd mp3`
 2. Install dependencies:
 `npm install`
 3. Run the dev server:
