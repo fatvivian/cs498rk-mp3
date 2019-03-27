@@ -49,7 +49,7 @@ Here are some example queries and what they would return:
 |-----------------------------------------------------------------------------------------|---------------------------------------------------------|
 | `http://localhost:4000/api/users?where={"_id": "55099652e5993a350458b7b7"}`         | Returns a list with a single user with the specified ID |
 | `http://localhost:4000/api/tasks?where={"completed": true}`                          | Returns a list of completed tasks                       |
-| `http://localhost:4000/api/tasks?where={"_id": {"$in": ["235263523","3872138723"]}}` | Returns a set of tasks                                  |
+| `http://localhost:4000/api/tasks?where={"_id": {"$in": ["59f930d6b1596b0cb3e82953","5a1b6d7bd72ba9106fe9239c"]}}` | Returns a set of tasks                                  |
 | `http://localhost:4000/api/users?sort={"name": 1}`                                  | Returns a list of users sorted by name                  |
 | `http://localhost:4000/api/users?select={"_id": 0}`                                  | Returns a list of users without the _id field           |
 | `http://localhost:4000/api/users?skip=60&limit=20`                                   | Returns user number 61 to 80                            |
