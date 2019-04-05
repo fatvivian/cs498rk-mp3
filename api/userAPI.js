@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var Task = require('../models/task');
 var express = require('express');
 router = express.Router();
 
@@ -17,10 +18,13 @@ router.get('/:id', function(req, res) {
       if (user) {
         return res.status(200).send({message:"OK", data: user});
       } else {
-        return res.status(404).send({message:"NOT FOUND", data: []});
+        return res.status(404).send({message:"USER NOT FOUND", data: []});
       }
     })
     .catch((err) => {
+      if (err.name == "CastError") {
+        return res.status(400).send({message:"INVALID ID PROVIDED", data: []});
+      }
       return res.status(500).send({message:"SERVER ERROR", data: []});
     })
 });
@@ -30,13 +34,30 @@ router.delete('/:id', function(req, res) {
   User.findByIdAndDelete(req.params.id)
     .then((user) => {
       if (user) {
-        return res.status(200).send({message:"OK", data: user});
+        var update = {
+          assignedUser: "",
+          assignedUserName: "unassigned"
+        }
+        var promises = [];
+        for(var i = 0; i < user.pendingTasks.length; i++) {
+          promises.push(Task.findByIdAndUpdate(user.pendingTasks[i], {$set: update}, {new: true}));
+        }
+        Promise.all(promises)
+          .then(() => {
+            return res.status(200).send({message:"OK", data: user});
+          })
+          .catch((err) => {
+            return res.status(200).send({message:"OK", data: user});
+          });
       } else {
-        return res.status(404).send({message:"NOT FOUND", data: []});
+        return res.status(404).send({message:"USER NOT FOUND", data: []});
       }
     })
     .catch((err) => {
-      return res.status(500).send({message:"SERVER ERROR", data: []});
+      if (err.name == "CastError") {
+        return res.status(400).send({message:"INVALID ID PROVIDED", data: []});
+      }
+      return res.status(500).send({message:"SERVER ERROR", data: [err]});
     })
 });
 
@@ -47,11 +68,12 @@ router.put('/:id', function(req, res) {
   }
   var update = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    pendingTasks: req.body.pendingTasks
   }
   User.findOne({email: req.body.email})
     .then((user) => {
-      if (user) {
+      if (user && user.id != req.params.id) {
         return res.status(400).send({message:'EMAIL ALREADY EXISTS', data: []});
       } else {
         User.findByIdAndUpdate(req.params.id, {$set: update}, {new: true})
@@ -59,10 +81,13 @@ router.put('/:id', function(req, res) {
             if (updated_user) {
               return res.status(200).send({message:"OK", data: updated_user});
             } else {
-              return res.status(404).send({message:"NOT FOUND", data: []});
+              return res.status(404).send({message:"USER NOT FOUND", data: []});
             }
           })
           .catch((err) => {
+            if (err.name == "CastError") {
+              return res.status(400).send({message:"INVALID ID PROVIDED", data: []});
+            }
             return res.status(500).send({message:"SERVER ERROR", data: []});
           });
       }
@@ -105,7 +130,8 @@ router.post('/', function(req, res) {
   }
   var new_user = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    pendingTasks: req.body.pendingTasks
   }
   User.findOne({email: req.body.email})
     .then((user) => {
@@ -122,6 +148,9 @@ router.post('/', function(req, res) {
       }
     })
     .catch((err) => {
+      if (err.name == "CastError") {
+        return res.status(400).send({message:"INVALID ID PROVIDED", data: []});
+      }
       return res.status(500).send({message: 'SERVER ERROR', data: []});
     });
 });
