@@ -19,7 +19,7 @@ router.get('/:id', function(req, res) {
       if (task) {
         return res.status(200).send({message:"OK", data: task});
       } else {
-        return res.status(404).send({message:"NOT FOUND", data: []});
+        return res.status(404).send({message:"TASK NOT FOUND", data: []});
       }
     })
     .catch((err) => {
@@ -76,7 +76,7 @@ router.put('/:id', function(req, res) {
               return res.status(200).send({message:"OK", data: updated_task});
             })
             .catch((err) => {
-              return res.status(500).send({message:"TASK UPDATED BUT ASSIGNED USER FAIL TO GET IT", data: updated_task});
+              return res.status(500).send({message:"TASK UPDATED BUT FAIL TO LINK TO ASSIGNED USER", data: updated_task});
             });
           } else {
             User.findByIdAndUpdate(user_id, {$push: {pendingTasks: updated_task._id}})
@@ -84,7 +84,7 @@ router.put('/:id', function(req, res) {
               return res.status(200).send({message:"OK", data: updated_task});
             })
             .catch((err) => {
-              return res.status(500).send({message:"TASK UPDATED BUT ASSIGNED USER FAIL TO GET IT", data: updated_task});
+              return res.status(500).send({message:"TASK UPDATED BUT FAIL TO LINK TO ASSIGNED USER", data: updated_task});
             });
           }
         } else {
